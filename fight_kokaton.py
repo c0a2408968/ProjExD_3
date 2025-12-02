@@ -184,12 +184,14 @@ def main():
     clock = pg.time.Clock()
     tmr = 0
     while True:
+
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 return
             if event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
                 # スペースキー押下でBeamクラスのインスタンス生成
-                beam = Beam(bird)          
+                beam = Beam(bird) 
+                beams.append(beam)  # ビームをリストに追加         
         screen.blit(bg_img, [0, 0])
 
         for b, bomb in enumerate(bombs):
@@ -204,24 +206,27 @@ def main():
                 return
         
         for b, bomb in enumerate(bombs):
-            if beam is not None and beam.rct.colliderect(bomb.rct):
-                # 爆弾とビームが衝突したら，両者とも消滅させる
-                beam = None
-                bombs[b] = None # ぶつかった爆弾のみをNoneにする
-                bird.change_img(6, screen)  # こうかとん画像をハッピー画像に変更
-                score.score += 1  # スコアを1点加算
-                score.update(screen)  # スコア表示を更新
-                pg.display.update()
+            for i, beam in enumerate(beams):
+                if beam is not None and beam.rct.colliderect(bomb.rct):
+                    # 爆弾とビームが衝突したら，両者とも消滅させる
+                    beams[i] = None
+                    bombs[b] = None # ぶつかった爆弾のみをNoneにする
+                    bird.change_img(6, screen)  # こうかとん画像をハッピー画像に変更
+                    score.score += 1  # スコアを1点加算
+                    score.update(screen)  # スコア表示を更新
+                    pg.display.update()
         bombs = [bomb for bomb in bombs if bomb is not None]  # Noneでない爆弾のみを残す
 
         key_lst = pg.key.get_pressed()
         bird.update(key_lst, screen)
 
-        if beam is not None:  # ビームが存在していたら
-            beam.update(screen)  
+        for beam in beams:
+            if beam is not None:  # ビームが存在していたら
+                beam.update(screen)  
 
-        for bomb in bombs:  # 爆弾が存在していたら     
-            bomb.update(screen)
+        for bomb in bombs:  # 爆弾が存在していたら 
+            if bomb is not None:    
+                bomb.update(screen)
 
         score.update(screen)  # スコア表示を更新
         pg.display.update()
