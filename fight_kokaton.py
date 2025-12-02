@@ -148,11 +148,7 @@ class Score:  # 応用問題1
     def __init__(self):
         """
         爆弾をビームで撃ち落としたときのスコアの初期化
-        引数1 fonto：スコア表示用のフォント
-        引数2 font_color：スコア表示用のフォントカラー
-        引数3 score：初期スコア
-        引数4 img：文字列Surfaceの生成
-        引数5 position_center：文字列の中心座標
+        引数なし
         """
         self.fonto = pg.font.SysFont("hgp創英角ﾎﾟｯﾌﾟ体", 30)
         self.font_color = (0, 0, 255)
