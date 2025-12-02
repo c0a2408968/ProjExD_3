@@ -141,6 +141,42 @@ class Bomb:
         screen.blit(self.img, self.rct)
 
 
+class Score:  # 応用問題1
+    """
+    スコアに関するクラス
+    """
+    def __init__(self, fonto: pg.font.SysFont, font_color: tuple[int, int, int], score: int, img: pg.Surface, position_center: tuple[int, int]):
+        """
+        爆弾をビームで撃ち落としたときのスコアの初期化
+        引数1 fonto：スコア表示用のフォント
+        引数2 font_color：スコア表示用のフォントカラー
+        引数3 score：初期スコア
+        引数4 img：文字列Surfaceの生成
+        引数5 position_center：文字列の中心座標
+        """
+        self.fonto = pg.font.SysFont("hgp創英角ﾎﾟｯﾌﾟ体", 30)
+        self.font_color = (0, 0, 255)
+        self.score = 0
+        self.img = self.fonto.render("スコア：", 0, self.font_color)
+        self.position_center = (100, 50)
+
+    def increase(self, points: int):
+        """
+        スコアを増加させる
+        引数 points：増加させるポイント数
+        """
+        self.score += points
+
+    def display(self, screen: pg.Surface):
+        """
+        スコアを画面に表示する
+        引数 screen：画面Surface
+        """
+        font = pg.font.Font(None, 36)
+        score_surf = font.render(f"Score: {self.score}", True, (255, 255, 255))
+        screen.blit(score_surf, (10, 10))
+
+
 def main():
     pg.display.set_caption("たたかえ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))    
