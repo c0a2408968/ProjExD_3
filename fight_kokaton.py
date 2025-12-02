@@ -182,16 +182,7 @@ class Explosion:  # 応用問題3
         self.rct.center = position
         self.life = life  # 爆発エフェクトの表示時間
 
-    def update(self, screen: pg.Surface):
-        """
-        爆発エフェクトを画面に表示し，表示時間を管理する
-        引数 screen：画面Surface
-        """
-        if self.duration > 0:
-            screen.blit(self.img, self.rct)
-            self.duration -= 1
-
-
+    
 def main():
     pg.display.set_caption("たたかえ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))    
