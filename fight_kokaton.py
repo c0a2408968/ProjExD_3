@@ -261,8 +261,8 @@ def main():
             if beam is not None:  # ビームが存在していたら
                 beam.update(screen)  
 
-        for bomb in bombs:  # 爆弾が存在していたら 
-            if bomb is not None:    
+        for bomb in bombs: 
+            if bomb is not None:  # 爆弾が存在していたら    
                 bomb.update(screen)
 
         score.update(screen)  # スコア表示を更新
