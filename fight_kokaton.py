@@ -179,6 +179,7 @@ def main():
     bombs = [Bomb((255, 0, 0), 10) for _ in range(NUM_OF_BOMBS)]  # リスト内包表記で爆弾を複数生成
 
     beam = None  # ゲーム初期化時にはビームは存在しない
+    beams = []  # 複数のビームを格納するリスト
     score = Score()  # スコアクラスのインスタンス生成
     clock = pg.time.Clock()
     tmr = 0
