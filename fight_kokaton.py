@@ -160,21 +160,7 @@ class Score:  # 応用問題1
         self.img = self.fonto.render("スコア：", self.score, self.font_color)
         self.position_center = (100, 50)
 
-    def increase(self, points: int):
-        """
-        スコアを増加させる
-        引数 points：増加させるポイント数
-        """
-        self.score += points
-
-    def display(self, screen: pg.Surface):
-        """
-        スコアを画面に表示する
-        引数 screen：画面Surface
-        """
-        font = pg.font.Font(None, 36)
-        score_surf = font.render(f"Score: {self.score}", True, (255, 255, 255))
-        screen.blit(score_surf, (10, 10))
+    
 
 
 def main():
