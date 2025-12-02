@@ -175,7 +175,7 @@ class Explosion:  # 応用問題3
         引数1 position：爆発エフェクトの位置座標タプル
         引数2 life：爆発エフェクトの表示時間
         """
-        self.img = pg.image.load("fig/explosion.png")
+        self.img = pg.image.load("fig/explosion.gif")
         self.img_fl = pg.transform.flip(self.img, True, True)
         self.list = [self.img, self.img_fl]
         self.rct = self.img.get_rect()
@@ -208,6 +208,7 @@ def main():
     beam = None  # ゲーム初期化時にはビームは存在しない
     beams = []  # 複数のビームを格納するリスト
     score = Score()  # スコアクラスのインスタンス生成
+    explosions = []  # 爆発エフェクトを格納するリスト
     clock = pg.time.Clock()
     tmr = 0
     while True:
@@ -236,6 +237,10 @@ def main():
             for i, beam in enumerate(beams):
                 if beam is not None and beam.rct.colliderect(bomb.rct):
                     # 爆弾とビームが衝突したら，両者とも消滅させる
+                    explosion = Explosion(bomb.rct.center, 10)  # 爆発エフェクトのインスタンス生成
+                    if explosion.life > 0:
+                        explosions.append(explosion)  # 爆発エフェクトをリストに追加
+                        explosions[-1].update(screen)  # 爆発エフェクトを表示
                     beams[i] = None
                     bombs[b] = None # ぶつかった爆弾のみをNoneにする
                     bird.change_img(6, screen)  # こうかとん画像をハッピー画像に変更
