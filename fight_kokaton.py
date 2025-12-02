@@ -145,7 +145,7 @@ class Score:  # 応用問題1
     """
     スコアに関するクラス
     """
-    def __init__(self, fonto: pg.font.SysFont, font_color: tuple[int, int, int], score: int, img: pg.Surface, position_center: tuple[int, int]):
+    def __init__(self):
         """
         爆弾をビームで撃ち落としたときのスコアの初期化
         引数1 fonto：スコア表示用のフォント
@@ -157,7 +157,7 @@ class Score:  # 応用問題1
         self.fonto = pg.font.SysFont("hgp創英角ﾎﾟｯﾌﾟ体", 30)
         self.font_color = (0, 0, 255)
         self.score = 0
-        self.img = self.fonto.render("表示させる文字列", 0, self.font_color)
+        self.img = self.fonto.render("表示させる文字列", self.score, self.font_color)
         self.position_center = (100, 50)
 
     def update(self, screen: pg.Surface):
@@ -165,7 +165,7 @@ class Score:  # 応用問題1
         現在のスコアを表示させる文字列Surfaceの生成
         引数 screen：画面Surface
         """
-        self.img = self.fonto.render(f"スコア：{self.score}", True, self.font_color)
+        self.img = self.fonto.render(f"スコア：{self.score}", self.score, self.font_color)
         screen.blit(self.img, self.position_center)
 
 
@@ -183,6 +183,7 @@ def main():
     bombs = [Bomb((255, 0, 0), 10) for _ in range(NUM_OF_BOMBS)]  # リスト内包表記で爆弾を複数生成
 
     beam = None  # ゲーム初期化時にはビームは存在しない
+    score = Score()  # スコアクラスのインスタンス生成
     clock = pg.time.Clock()
     tmr = 0
     while True:
@@ -211,6 +212,8 @@ def main():
                 beam = None
                 bombs[b] = None # ぶつかった爆弾のみをNoneにする
                 bird.change_img(6, screen)  # こうかとん画像をハッピー画像に変更
+                score.score += 1  # スコアを1点加算
+                score.update(screen)  # スコア表示を更新
                 pg.display.update()
         bombs = [bomb for bomb in bombs if bomb is not None]  # Noneでない爆弾のみを残す
 
@@ -223,6 +226,7 @@ def main():
         for bomb in bombs:  # 爆弾が存在していたら     
             bomb.update(screen)
 
+        score.update(screen)  # スコア表示を更新
         pg.display.update()
         tmr += 1
         clock.tick(50)
