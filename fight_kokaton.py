@@ -157,7 +157,7 @@ class Score:  # 応用問題1
         self.fonto = pg.font.SysFont("hgp創英角ﾎﾟｯﾌﾟ体", 30)
         self.font_color = (0, 0, 255)
         self.score = 0
-        self.img = self.fonto.render("スコア：", 0, self.font_color)
+        self.img = self.fonto.render("スコア：", self.score, self.font_color)
         self.position_center = (100, 50)
 
     def increase(self, points: int):
