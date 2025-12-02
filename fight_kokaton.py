@@ -181,7 +181,16 @@ class Explosion:  # 応用問題3
         self.rct = self.img.get_rect()
         self.rct.center = position
         self.life = life  # 爆発エフェクトの表示時間
-
+    
+    def update(self, screen: pg.Surface):
+        """
+        爆発エフェクトを表示させる
+        引数 screen：画面Surface
+        """
+        if self.life > 0:
+            screen.blit(self.list[self.life % 2], self.rct)
+            self.life -= 1
+        
     
 def main():
     pg.display.set_caption("たたかえ！こうかとん")
