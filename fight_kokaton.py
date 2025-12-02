@@ -165,6 +165,33 @@ class Score:  # 応用問題1
         screen.blit(self.img, self.position_center)
 
 
+class Explosion:  # 応用問題3
+    """
+    爆発エフェクトに関するクラス
+    """
+    def __init__(self, position: tuple[int, int], life: int):
+        """
+        爆発エフェクト画像Surfaceを生成する
+        引数1 position：爆発エフェクトの位置座標タプル
+        引数2 life：爆発エフェクトの表示時間
+        """
+        self.img = pg.image.load("fig/explosion.png")
+        self.img_fl = pg.transform.flip(self.img, True, True)
+        self.list = [self.img, self.img_fl]
+        self.rct = self.img.get_rect()
+        self.rct.center = position
+        self.life = life  # 爆発エフェクトの表示時間
+
+    def update(self, screen: pg.Surface):
+        """
+        爆発エフェクトを画面に表示し，表示時間を管理する
+        引数 screen：画面Surface
+        """
+        if self.duration > 0:
+            screen.blit(self.img, self.rct)
+            self.duration -= 1
+
+
 def main():
     pg.display.set_caption("たたかえ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))    
