@@ -157,10 +157,16 @@ class Score:  # 応用問題1
         self.fonto = pg.font.SysFont("hgp創英角ﾎﾟｯﾌﾟ体", 30)
         self.font_color = (0, 0, 255)
         self.score = 0
-        self.img = self.fonto.render("スコア：", self.score, self.font_color)
+        self.img = self.fonto.render("表示させる文字列", 0, self.font_color)
         self.position_center = (100, 50)
 
-    
+    def update(self, screen: pg.Surface):
+        """
+        現在のスコアを表示させる文字列Surfaceの生成
+        引数 screen：画面Surface
+        """
+        self.img = self.fonto.render(f"スコア：{self.score}", True, self.font_color)
+        screen.blit(self.img, self.position_center)
 
 
 def main():
