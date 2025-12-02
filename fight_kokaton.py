@@ -56,6 +56,7 @@ class Bird:
         self.img = __class__.imgs[(+5, 0)]
         self.rct: pg.Rect = self.img.get_rect()
         self.rct.center = xy
+        self.dire = (+5, 0)
 
     def change_img(self, num: int, screen: pg.Surface):
         """
@@ -73,6 +74,8 @@ class Bird:
         引数2 screen：画面Surface
         """
         sum_mv = [0, 0]
+        if sum_mv != [0, 0]:
+            self.dire = (sum_mv[0], sum_mv[1])
         for k, mv in __class__.delta.items():
             if key_lst[k]:
                 sum_mv[0] += mv[0]
